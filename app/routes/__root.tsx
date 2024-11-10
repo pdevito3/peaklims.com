@@ -5,8 +5,8 @@ import {
 } from "@tanstack/react-router";
 import { Body, Head, Html, Meta, Scripts } from "@tanstack/start";
 import type { ReactNode } from "react";
-import { DefaultCatchBoundary } from "~/components/DefaultCacheBoundary";
-import { NotFound } from "~/components/NotFound";
+import { DefaultCatchBoundary } from "~/components/routing/default-cache-boundary";
+import { NotFound } from "~/components/routing/not-found";
 import { heroDescription, tagLine } from "~/resources/marketing-copy";
 import appCss from "~/styles/app.css?url";
 import { seo } from "~/utils.seo";
