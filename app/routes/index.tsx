@@ -30,15 +30,8 @@ function Home() {
   const state = Route.useLoaderData();
 
   return (
-    <button
-      type="button"
-      onClick={() => {
-        updateCount(1).then(() => {
-          router.invalidate();
-        });
-      }}
-    >
-      Add 1 to {state}?
-    </button>
+    <>
+      <h1 className="text-4xl text-purple-500"> Count: {state} </h1>
+    </>
   );
 }
