@@ -7,6 +7,7 @@ export function RequestAccessForm({
   classNames?: {
     root?: string;
     form?: string;
+    content?: string;
   };
 }) {
   const [email, setEmail] = useState("");
@@ -45,7 +46,7 @@ export function RequestAccessForm({
         )}
         onSubmit={handleSubscribe}
       >
-        <div className="relative w-full sm:max-w-md">
+        <div className={cn("relative w-full sm:max-w-md", classNames?.content)}>
           <input
             type="email"
             value={email}
@@ -57,7 +58,7 @@ export function RequestAccessForm({
             type="submit"
             className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center px-4 py-1.5 justify-center text-base font-semibold text-white bg-emerald-600 border border-transparent rounded-md shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-0"
           >
-            Request Access
+            Join Waitlist
           </button>
         </div>
       </form>

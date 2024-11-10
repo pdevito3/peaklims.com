@@ -1,7 +1,8 @@
+import type { QueryClient } from "@tanstack/react-query";
 import {
   Outlet,
   ScrollRestoration,
-  createRootRoute,
+  createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { Body, Head, Html, Meta, Scripts } from "@tanstack/start";
 import type { ReactNode } from "react";
@@ -11,7 +12,9 @@ import { heroDescription, tagLine } from "~/resources/marketing-copy";
 import appCss from "~/styles/app.css?url";
 import { seo } from "~/utils.seo";
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{
+  queryClient: QueryClient;
+}>()({
   meta: () => [
     {
       charSet: "utf-8",

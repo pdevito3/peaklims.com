@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { useEffect, useId, useRef } from "react";
 import peakLimsScreenshot from "~/assets/peaklims-screenshot.png";
-import { RequestAccessForm } from "~/components/request-access-form";
+import { RequestAccessForm } from "~/components/waitlist-form";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -163,6 +163,7 @@ function Home() {
                 <div className="pt-8">
                   <RequestAccessForm
                     classNames={{
+                      content: "sm:max-w-lg",
                       form: "justify-start",
                     }}
                   />
