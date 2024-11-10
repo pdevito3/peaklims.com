@@ -26,7 +26,7 @@ export function RequestAccessForm({
     },
   });
 
-  const handleSubscribe = async (event) => {
+  const handleSubscribe = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     mutation.mutate({ email, tags: ["early requestor"] });
   };
@@ -45,19 +45,21 @@ export function RequestAccessForm({
         )}
         onSubmit={handleSubscribe}
       >
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="block w-full px-4 py-3 text-base text-gray-900 placeholder-gray-500 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 sm:max-w-xs"
-          placeholder="Enter your work email"
-        />
-        <button
-          type="submit"
-          className="ml-3 min-w-48 flex items-center px-4 py-3 justify-center text-base font-semibold text-white bg-emerald-600 border border-transparent rounded-md shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-white"
-        >
-          Request Access
-        </button>
+        <div className="relative w-full sm:max-w-md">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="block w-full px-4 py-3 text-base text-gray-900 placeholder-gray-500 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none pr-[160px]"
+            placeholder="Enter your work email"
+          />
+          <button
+            type="submit"
+            className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center px-4 py-1.5 justify-center text-base font-semibold text-white bg-emerald-600 border border-transparent rounded-md shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-0"
+          >
+            Request Access
+          </button>
+        </div>
       </form>
 
       {successMessage && !errorMessage && (
