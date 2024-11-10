@@ -10,7 +10,7 @@ import { DefaultCatchBoundary } from "~/components/routing/default-cache-boundar
 import { NotFound } from "~/components/routing/not-found";
 import { heroDescription, tagLine } from "~/resources/marketing-copy";
 import appCss from "~/styles/app.css?url";
-import { seo } from "~/utils.seo";
+import { seo } from "~/utils/seo";
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
@@ -59,6 +59,19 @@ export const Route = createRootRouteWithContext<{
   },
   notFoundComponent: () => <NotFound />,
   component: RootComponent,
+  // temp HMR resolution https://github.com/TanStack/router/issues/1992
+  scripts: () =>
+    import.meta.env.PROD
+      ? []
+      : [
+          {
+            type: "module",
+            children: `import RefreshRuntime from "/_build/@react-refresh";
+RefreshRuntime.injectIntoGlobalHook(window)
+window.$RefreshReg$ = () => {}
+window.$RefreshSig$ = () => (type) => type`,
+          },
+        ],
 });
 
 function RootComponent() {
