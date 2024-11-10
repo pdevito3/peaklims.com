@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { useEffect, useId, useRef } from "react";
 import peakLimsScreenshot from "~/assets/peaklims-screenshot.png";
-import { RequestAccessForm } from "~/components/waitlist-form";
+import { WaitlistForm } from "~/components/waitlist-form";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -95,7 +95,11 @@ function Home() {
                 </p>
               </div>
               <div className="mt-10 flex items-center justify-center w-full">
-                <RequestAccessForm />
+                <WaitlistForm
+                  classNames={{
+                    form: "justify-center",
+                  }}
+                />
 
                 {/* <div
                   // className="[&_a:data-[element=powered-by]]:hidden"
@@ -161,10 +165,9 @@ function Home() {
                   gradually opening up early access to a limited number of labs.
                 </p>
                 <div className="pt-8">
-                  <RequestAccessForm
+                  <WaitlistForm
                     classNames={{
-                      content: "sm:max-w-lg",
-                      form: "justify-start",
+                      root: "justify-start items-start",
                     }}
                   />
                 </div>
@@ -326,7 +329,7 @@ const grid = [
     ),
     title: "Easy customization",
     description:
-      "Built with modern software practices, customize Peak LIMS to fit your lab's unique needs.",
+      "Built with modern software practices, customize Peak LIMS to fit your lab's unique needs with confidence.",
   },
   {
     icon: () => (
@@ -334,21 +337,18 @@ const grid = [
         xmlns="http://www.w3.org/2000/svg"
         width={200}
         height={200}
-        viewBox="0 0 24 24"
+        viewBox="0 0 640 512"
         className="w-6 h-6 text-emerald-500"
       >
-        <g fill="none">
-          <path
-            fill="currentColor"
-            d="M11.5 13.8h-1.063c-1.53 0-2.294 0-2.583-.497c-.29-.497.088-1.162.844-2.491l2.367-4.167c.375-.66.563-.99.749-.94c.186.049.186.428.186 1.187V9.7c0 .236 0 .354.073.427c.073.073.191.073.427.073h1.063c1.53 0 2.294 0 2.583.497c.29.497-.088 1.162-.844 2.491l-2.367 4.167c-.375.66-.563.99-.749.94C12 18.247 12 17.868 12 17.109V14.3c0-.236 0-.354-.073-.427c-.073-.073-.191-.073-.427-.073"
-          />
-          <circle cx={12} cy={12} r={9} stroke="currentColor" strokeWidth={2} />
-        </g>
+        <path
+          fill="currentColor"
+          d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3l89.3 89.4l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"
+        />
       </svg>
     ),
-    title: "Fast and reliable",
+    title: "Built for the long term",
     description:
-      "Peak LIMS is built to be fast and reliable, so you can trust it to work when you need it.",
+      "Keeping engineering in mind, Peak LIMS is designed for seamless maintenance and customization with a modern stack.",
   },
 ];
 

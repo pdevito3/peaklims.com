@@ -1,7 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { cn } from "~/utils";
-export function RequestAccessForm({
+
+export function WaitlistForm({
   classNames,
 }: {
   classNames?: {
@@ -29,24 +30,30 @@ export function RequestAccessForm({
 
   const handleSubscribe = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (!email) {
+      setErrorMessage("Please enter your email address.");
+      return;
+    }
+
     mutation.mutate({ email, tags: ["early requestor"] });
   };
 
   return (
     <div
       className={cn(
-        "flex items-center justify-center w-full",
+        "flex flex-col items-center justify-start w-full",
         classNames?.root
       )}
     >
       <form
         className={cn(
-          "flex items-center justify-center w-full",
+          "flex items-center justify-start w-full",
           classNames?.form
         )}
         onSubmit={handleSubscribe}
       >
-        <div className={cn("relative w-full sm:max-w-md", classNames?.content)}>
+        <div className={cn("relative w-full sm:max-w-xl", classNames?.content)}>
           <input
             type="email"
             value={email}
@@ -64,12 +71,12 @@ export function RequestAccessForm({
       </form>
 
       {successMessage && !errorMessage && (
-        <div className="text-center font-semibold mt-4 text-green-600">
+        <div className="text-start font-semibold mt-2 text-green-600">
           {successMessage}
         </div>
       )}
       {errorMessage && (
-        <div className="text-center font-semibold mt-4 text-rose-600">
+        <div className="text-start font-semibold mt-2 text-rose-600">
           {errorMessage}
         </div>
       )}
