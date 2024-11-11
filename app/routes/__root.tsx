@@ -5,6 +5,7 @@ import {
   createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { Body, Head, Html, Meta, Scripts } from "@tanstack/start";
+import { ClickToComponent } from "click-to-react-component";
 import type { ReactNode } from "react";
 import { DefaultCatchBoundary } from "~/components/routing/default-cache-boundary";
 import { NotFound } from "~/components/routing/not-found";
@@ -78,6 +79,7 @@ function RootComponent() {
   return (
     <RootDocument>
       <Outlet />
+      <ClickToComponent />
     </RootDocument>
   );
 }
