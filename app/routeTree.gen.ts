@@ -8,18 +8,44 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as DocsDocsLayoutImport } from './routes/docs/_docs-layout'
+import { Route as DocsDocsLayoutSustainableUseLicenseImport } from './routes/docs/_docs-layout/sustainable-use-license'
+
+// Create Virtual Routes
+
+const DocsImport = createFileRoute('/docs')()
 
 // Create/Update Routes
+
+const DocsRoute = DocsImport.update({
+  id: '/docs',
+  path: '/docs',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
+
+const DocsDocsLayoutRoute = DocsDocsLayoutImport.update({
+  id: '/_docs-layout',
+  getParentRoute: () => DocsRoute,
+} as any)
+
+const DocsDocsLayoutSustainableUseLicenseRoute =
+  DocsDocsLayoutSustainableUseLicenseImport.update({
+    id: '/sustainable-use-license',
+    path: '/sustainable-use-license',
+    getParentRoute: () => DocsDocsLayoutRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -32,39 +58,97 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/docs': {
+      id: '/docs'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsImport
+      parentRoute: typeof rootRoute
+    }
+    '/docs/_docs-layout': {
+      id: '/docs/_docs-layout'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsDocsLayoutImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/_docs-layout/sustainable-use-license': {
+      id: '/docs/_docs-layout/sustainable-use-license'
+      path: '/sustainable-use-license'
+      fullPath: '/docs/sustainable-use-license'
+      preLoaderRoute: typeof DocsDocsLayoutSustainableUseLicenseImport
+      parentRoute: typeof DocsDocsLayoutImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface DocsDocsLayoutRouteChildren {
+  DocsDocsLayoutSustainableUseLicenseRoute: typeof DocsDocsLayoutSustainableUseLicenseRoute
+}
+
+const DocsDocsLayoutRouteChildren: DocsDocsLayoutRouteChildren = {
+  DocsDocsLayoutSustainableUseLicenseRoute:
+    DocsDocsLayoutSustainableUseLicenseRoute,
+}
+
+const DocsDocsLayoutRouteWithChildren = DocsDocsLayoutRoute._addFileChildren(
+  DocsDocsLayoutRouteChildren,
+)
+
+interface DocsRouteChildren {
+  DocsDocsLayoutRoute: typeof DocsDocsLayoutRouteWithChildren
+}
+
+const DocsRouteChildren: DocsRouteChildren = {
+  DocsDocsLayoutRoute: DocsDocsLayoutRouteWithChildren,
+}
+
+const DocsRouteWithChildren = DocsRoute._addFileChildren(DocsRouteChildren)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/docs': typeof DocsDocsLayoutRouteWithChildren
+  '/docs/sustainable-use-license': typeof DocsDocsLayoutSustainableUseLicenseRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/docs': typeof DocsDocsLayoutRouteWithChildren
+  '/docs/sustainable-use-license': typeof DocsDocsLayoutSustainableUseLicenseRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/docs': typeof DocsRouteWithChildren
+  '/docs/_docs-layout': typeof DocsDocsLayoutRouteWithChildren
+  '/docs/_docs-layout/sustainable-use-license': typeof DocsDocsLayoutSustainableUseLicenseRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/docs' | '/docs/sustainable-use-license'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/docs' | '/docs/sustainable-use-license'
+  id:
+    | '__root__'
+    | '/'
+    | '/docs'
+    | '/docs/_docs-layout'
+    | '/docs/_docs-layout/sustainable-use-license'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DocsRoute: typeof DocsRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DocsRoute: DocsRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +161,29 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/docs"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/docs": {
+      "filePath": "docs",
+      "children": [
+        "/docs/_docs-layout"
+      ]
+    },
+    "/docs/_docs-layout": {
+      "filePath": "docs/_docs-layout.tsx",
+      "parent": "/docs",
+      "children": [
+        "/docs/_docs-layout/sustainable-use-license"
+      ]
+    },
+    "/docs/_docs-layout/sustainable-use-license": {
+      "filePath": "docs/_docs-layout/sustainable-use-license.tsx",
+      "parent": "/docs/_docs-layout"
     }
   }
 }
