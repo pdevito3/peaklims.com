@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(
-  '/docs/_docs-layout/sustainable-use-license',
+  '/docs/_docs-layout/licensing/sustainable-use-license',
 )({
   component: RouteComponent,
 })
