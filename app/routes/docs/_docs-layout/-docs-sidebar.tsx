@@ -71,7 +71,7 @@ const docs: Docs = {
       items: [
         {
           type: "category",
-          label: "Initial Time Setup",
+          label: "Initial Setup",
           collapsible: true,
           collapsed: false,
           items: [],

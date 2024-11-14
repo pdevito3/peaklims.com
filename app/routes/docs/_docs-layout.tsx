@@ -1,3 +1,4 @@
+import { MDXProvider } from "@mdx-js/react";
 import { Outlet, createFileRoute } from "@tanstack/react-router";
 import {
   SidebarInset,
@@ -11,6 +12,9 @@ export const Route = createFileRoute("/docs/_docs-layout")({
 });
 
 function RouteComponent() {
+  const components = {
+    em: (props: any) => <i {...props} />,
+  };
   return (
     <SidebarProvider
       style={
@@ -27,7 +31,11 @@ function RouteComponent() {
           Peak LIMS */}
         </header>
         <div className="px-4 max-w-7xl">
-          <Outlet />
+          <div className="prose">
+            <MDXProvider components={components}>
+              <Outlet />
+            </MDXProvider>
+          </div>
         </div>
       </SidebarInset>
     </SidebarProvider>
