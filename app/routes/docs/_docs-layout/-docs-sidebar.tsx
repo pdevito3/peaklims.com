@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
 import { ChevronRight } from "lucide-react";
 import * as React from "react";
 import logoWithName from "~/assets/logo-with-name.svg";
@@ -104,6 +104,9 @@ const docs: Docs = {
 export function DocsSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
+  const router = useRouter();
+  const currentPath = router.parseLocation().pathname;
+
   return (
     <Sidebar variant="floating" {...props}>
       <SidebarHeader>
@@ -120,7 +123,7 @@ export function DocsSidebar({
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu className="gap-2">
-            {docs.docs.map((item) => renderDocsItem(item))}
+            {docs.docs.map((item) => renderDocsItem(item, currentPath))}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
@@ -128,7 +131,19 @@ export function DocsSidebar({
   );
 }
 
-function renderDocsItem(item: Item, level = 0) {
+function isItemActive(item: Item, pathname: string): boolean {
+  if (item.type === "link") {
+    return item.href === pathname;
+  } else if (item.type === "category") {
+    return (
+      item.items?.some((subItem) => isItemActive(subItem, pathname)) ?? false
+    );
+  } else {
+    return false;
+  }
+}
+
+function renderDocsItem(item: Item, currentPath: string, level = 0) {
   if (item.type === "html") {
     return (
       <SidebarMenuItem key="html">
@@ -170,6 +185,16 @@ function renderDocsItem(item: Item, level = 0) {
     const isCollapsed = item.collapsed ?? true;
     const isTopLevelCategory = level === 0;
 
+    const isActive = isItemActive(item, currentPath); // Check if the item is active
+
+    const [isOpen, setIsOpen] = React.useState(() => !isCollapsed || isActive);
+
+    React.useEffect(() => {
+      if (isActive) {
+        setIsOpen(true); // Open the category if it's active
+      }
+    }, [isActive]);
+
     const CollapsibleComponent = isTopLevelCategory
       ? SidebarMenuItem
       : SidebarMenuSubItem;
@@ -182,7 +207,7 @@ function renderDocsItem(item: Item, level = 0) {
 
     if (isCollapsible) {
       return (
-        <Collapsible key={item.label} defaultOpen={!isCollapsed}>
+        <Collapsible key={item.label} open={isOpen} onOpenChange={setIsOpen}>
           <CollapsibleComponent>
             <CollapsibleTrigger asChild>
               <ButtonComponent className="group/collapsible select-none">
@@ -208,13 +233,13 @@ function renderDocsItem(item: Item, level = 0) {
                 isTopLevelCategory ? (
                   <SidebarMenuSub>
                     {item.items.map((subItem) =>
-                      renderDocsItem(subItem, level + 1)
+                      renderDocsItem(subItem, currentPath, level + 1)
                     )}
                   </SidebarMenuSub>
                 ) : (
                   <SidebarMenuSub className="ml-0 border-l-0 px-1.5">
                     {item.items.map((subItem) =>
-                      renderDocsItem(subItem, level + 1)
+                      renderDocsItem(subItem, currentPath, level + 1)
                     )}
                   </SidebarMenuSub>
                 )
@@ -247,7 +272,9 @@ function renderDocsItem(item: Item, level = 0) {
           )}
           {item.items?.length ? (
             <SidebarMenuSub className="ml-0 border-l-0 px-1.5">
-              {item.items.map((subItem) => renderDocsItem(subItem, level + 1))}
+              {item.items.map((subItem) =>
+                renderDocsItem(subItem, currentPath, level + 1)
+              )}
             </SidebarMenuSub>
           ) : null}
         </SidebarMenuItem>
@@ -271,11 +298,12 @@ function renderDocsItem(item: Item, level = 0) {
         )}
         {item.items?.length ? (
           <SidebarMenuSub className="ml-0 border-l-0 px-1.5">
-            {item.items.map((subItem) => renderDocsItem(subItem, level + 1))}
+            {item.items.map((subItem) =>
+              renderDocsItem(subItem, currentPath, level + 1)
+            )}
           </SidebarMenuSub>
         ) : null}
       </SidebarMenuSubItem>
     );
-  } else {
   }
 }
