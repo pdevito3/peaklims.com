@@ -16,8 +16,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as DocsDocsLayoutImport } from './routes/docs/_docs-layout'
 import { Route as DocsDocsLayoutIndexImport } from './routes/docs/_docs-layout/index'
-import { Route as DocsDocsLayoutLicensingIndexImport } from './routes/docs/_docs-layout/licensing/index'
-import { Route as DocsDocsLayoutLicensingSustainableUseLicenseImport } from './routes/docs/_docs-layout/licensing/sustainable-use-license'
+import { Route as DocsDocsLayoutSustainableUseLicenseImport } from './routes/docs/_docs-layout/sustainable-use-license'
 
 // Create Virtual Routes
 
@@ -48,17 +47,10 @@ const DocsDocsLayoutIndexRoute = DocsDocsLayoutIndexImport.update({
   getParentRoute: () => DocsDocsLayoutRoute,
 } as any)
 
-const DocsDocsLayoutLicensingIndexRoute =
-  DocsDocsLayoutLicensingIndexImport.update({
-    id: '/licensing/',
-    path: '/licensing/',
-    getParentRoute: () => DocsDocsLayoutRoute,
-  } as any)
-
-const DocsDocsLayoutLicensingSustainableUseLicenseRoute =
-  DocsDocsLayoutLicensingSustainableUseLicenseImport.update({
-    id: '/licensing/sustainable-use-license',
-    path: '/licensing/sustainable-use-license',
+const DocsDocsLayoutSustainableUseLicenseRoute =
+  DocsDocsLayoutSustainableUseLicenseImport.update({
+    id: '/sustainable-use-license',
+    path: '/sustainable-use-license',
     getParentRoute: () => DocsDocsLayoutRoute,
   } as any)
 
@@ -87,25 +79,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsDocsLayoutImport
       parentRoute: typeof DocsRoute
     }
+    '/docs/_docs-layout/sustainable-use-license': {
+      id: '/docs/_docs-layout/sustainable-use-license'
+      path: '/sustainable-use-license'
+      fullPath: '/docs/sustainable-use-license'
+      preLoaderRoute: typeof DocsDocsLayoutSustainableUseLicenseImport
+      parentRoute: typeof DocsDocsLayoutImport
+    }
     '/docs/_docs-layout/': {
       id: '/docs/_docs-layout/'
       path: '/'
       fullPath: '/docs/'
       preLoaderRoute: typeof DocsDocsLayoutIndexImport
-      parentRoute: typeof DocsDocsLayoutImport
-    }
-    '/docs/_docs-layout/licensing/sustainable-use-license': {
-      id: '/docs/_docs-layout/licensing/sustainable-use-license'
-      path: '/licensing/sustainable-use-license'
-      fullPath: '/docs/licensing/sustainable-use-license'
-      preLoaderRoute: typeof DocsDocsLayoutLicensingSustainableUseLicenseImport
-      parentRoute: typeof DocsDocsLayoutImport
-    }
-    '/docs/_docs-layout/licensing/': {
-      id: '/docs/_docs-layout/licensing/'
-      path: '/licensing'
-      fullPath: '/docs/licensing'
-      preLoaderRoute: typeof DocsDocsLayoutLicensingIndexImport
       parentRoute: typeof DocsDocsLayoutImport
     }
   }
@@ -114,16 +99,14 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface DocsDocsLayoutRouteChildren {
+  DocsDocsLayoutSustainableUseLicenseRoute: typeof DocsDocsLayoutSustainableUseLicenseRoute
   DocsDocsLayoutIndexRoute: typeof DocsDocsLayoutIndexRoute
-  DocsDocsLayoutLicensingSustainableUseLicenseRoute: typeof DocsDocsLayoutLicensingSustainableUseLicenseRoute
-  DocsDocsLayoutLicensingIndexRoute: typeof DocsDocsLayoutLicensingIndexRoute
 }
 
 const DocsDocsLayoutRouteChildren: DocsDocsLayoutRouteChildren = {
+  DocsDocsLayoutSustainableUseLicenseRoute:
+    DocsDocsLayoutSustainableUseLicenseRoute,
   DocsDocsLayoutIndexRoute: DocsDocsLayoutIndexRoute,
-  DocsDocsLayoutLicensingSustainableUseLicenseRoute:
-    DocsDocsLayoutLicensingSustainableUseLicenseRoute,
-  DocsDocsLayoutLicensingIndexRoute: DocsDocsLayoutLicensingIndexRoute,
 }
 
 const DocsDocsLayoutRouteWithChildren = DocsDocsLayoutRoute._addFileChildren(
@@ -143,16 +126,14 @@ const DocsRouteWithChildren = DocsRoute._addFileChildren(DocsRouteChildren)
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/docs': typeof DocsDocsLayoutRouteWithChildren
+  '/docs/sustainable-use-license': typeof DocsDocsLayoutSustainableUseLicenseRoute
   '/docs/': typeof DocsDocsLayoutIndexRoute
-  '/docs/licensing/sustainable-use-license': typeof DocsDocsLayoutLicensingSustainableUseLicenseRoute
-  '/docs/licensing': typeof DocsDocsLayoutLicensingIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/docs': typeof DocsDocsLayoutIndexRoute
-  '/docs/licensing/sustainable-use-license': typeof DocsDocsLayoutLicensingSustainableUseLicenseRoute
-  '/docs/licensing': typeof DocsDocsLayoutLicensingIndexRoute
+  '/docs/sustainable-use-license': typeof DocsDocsLayoutSustainableUseLicenseRoute
 }
 
 export interface FileRoutesById {
@@ -160,33 +141,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/docs': typeof DocsRouteWithChildren
   '/docs/_docs-layout': typeof DocsDocsLayoutRouteWithChildren
+  '/docs/_docs-layout/sustainable-use-license': typeof DocsDocsLayoutSustainableUseLicenseRoute
   '/docs/_docs-layout/': typeof DocsDocsLayoutIndexRoute
-  '/docs/_docs-layout/licensing/sustainable-use-license': typeof DocsDocsLayoutLicensingSustainableUseLicenseRoute
-  '/docs/_docs-layout/licensing/': typeof DocsDocsLayoutLicensingIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/docs'
-    | '/docs/'
-    | '/docs/licensing/sustainable-use-license'
-    | '/docs/licensing'
+  fullPaths: '/' | '/docs' | '/docs/sustainable-use-license' | '/docs/'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/docs'
-    | '/docs/licensing/sustainable-use-license'
-    | '/docs/licensing'
+  to: '/' | '/docs' | '/docs/sustainable-use-license'
   id:
     | '__root__'
     | '/'
     | '/docs'
     | '/docs/_docs-layout'
+    | '/docs/_docs-layout/sustainable-use-license'
     | '/docs/_docs-layout/'
-    | '/docs/_docs-layout/licensing/sustainable-use-license'
-    | '/docs/_docs-layout/licensing/'
   fileRoutesById: FileRoutesById
 }
 
@@ -227,21 +197,16 @@ export const routeTree = rootRoute
       "filePath": "docs/_docs-layout.tsx",
       "parent": "/docs",
       "children": [
-        "/docs/_docs-layout/",
-        "/docs/_docs-layout/licensing/sustainable-use-license",
-        "/docs/_docs-layout/licensing/"
+        "/docs/_docs-layout/sustainable-use-license",
+        "/docs/_docs-layout/"
       ]
+    },
+    "/docs/_docs-layout/sustainable-use-license": {
+      "filePath": "docs/_docs-layout/sustainable-use-license.tsx",
+      "parent": "/docs/_docs-layout"
     },
     "/docs/_docs-layout/": {
       "filePath": "docs/_docs-layout/index.tsx",
-      "parent": "/docs/_docs-layout"
-    },
-    "/docs/_docs-layout/licensing/sustainable-use-license": {
-      "filePath": "docs/_docs-layout/licensing/sustainable-use-license.tsx",
-      "parent": "/docs/_docs-layout"
-    },
-    "/docs/_docs-layout/licensing/": {
-      "filePath": "docs/_docs-layout/licensing/index.tsx",
       "parent": "/docs/_docs-layout"
     }
   }

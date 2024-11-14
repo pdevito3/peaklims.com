@@ -61,12 +61,11 @@ const docs: Docs = {
       label: "Licensing",
       collapsible: true,
       collapsed: false,
-      href: "/docs/licensing",
       items: [
         {
           type: "link",
           label: "Sustainable Use License",
-          href: "/docs/licensing/sustainable-use-license",
+          href: "/docs/sustainable-use-license",
         },
       ],
     },
@@ -100,26 +99,6 @@ export function DocsSidebar({
   );
 }
 
-function renderCategoryLabel(item: CategoryItem, isTopLevelCategory: boolean) {
-  const ButtonComponent = isTopLevelCategory
-    ? SidebarMenuButton
-    : SidebarMenuSubButton;
-
-  if (item.href) {
-    return (
-      <ButtonComponent asChild>
-        <Link to={item.href} className="font-medium">
-          {item.label}
-        </Link>
-      </ButtonComponent>
-    );
-  } else {
-    return (
-      <ButtonComponent className="font-medium">{item.label}</ButtonComponent>
-    );
-  }
-}
-
 function renderDocsItem(item: Item, level = 0) {
   if (item.type === "html") {
     return (
@@ -133,7 +112,14 @@ function renderDocsItem(item: Item, level = 0) {
       return (
         <SidebarMenuItem key={item.href}>
           <SidebarMenuButton asChild>
-            <Link to={item.href} className="font-medium">
+            <Link
+              to={item.href}
+              className="font-medium"
+              activeOptions={{ exact: true }}
+              activeProps={{
+                className: "text-emerald-500 hover:text-emerald-400",
+              }}
+            >
               {item.label}
             </Link>
           </SidebarMenuButton>
@@ -144,7 +130,9 @@ function renderDocsItem(item: Item, level = 0) {
     return (
       <SidebarMenuSubItem key={item.href}>
         <SidebarMenuSubButton asChild>
-          <Link to={item.href}>{item.label}</Link>
+          <Link className="" activeOptions={{ exact: true }} to={item.href}>
+            {item.label}
+          </Link>
         </SidebarMenuSubButton>
       </SidebarMenuSubItem>
     );
@@ -170,7 +158,14 @@ function renderDocsItem(item: Item, level = 0) {
             <CollapsibleTrigger asChild>
               <ButtonComponent className="group/collapsible select-none">
                 {item.href ? (
-                  <LinkComponent href={item.href} className="font-medium">
+                  <LinkComponent
+                    href={item.href}
+                    className="font-medium"
+                    activeOptions={{ exact: true }}
+                    activeProps={{
+                      className: "text-emerald-500 hover:text-emerald-400",
+                    }}
+                  >
                     {item.label}
                   </LinkComponent>
                 ) : (
@@ -206,7 +201,14 @@ function renderDocsItem(item: Item, level = 0) {
       return (
         <SidebarMenuItem key={item.label}>
           {item.href ? (
-            <LinkComponent href={item.href} className="font-medium">
+            <LinkComponent
+              href={item.href}
+              className="font-medium"
+              activeOptions={{ exact: true }}
+              activeProps={{
+                className: "text-emerald-500 hover:text-emerald-400",
+              }}
+            >
               {item.label}
             </LinkComponent>
           ) : (
@@ -226,7 +228,11 @@ function renderDocsItem(item: Item, level = 0) {
     return (
       <SidebarMenuSubItem key={item.label}>
         {item.href ? (
-          <LinkComponent href={item.href} className="font-medium">
+          <LinkComponent
+            href={item.href}
+            className="font-medium"
+            activeOptions={{ exact: true }}
+          >
             {item.label}
           </LinkComponent>
         ) : (
