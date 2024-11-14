@@ -104,9 +104,6 @@ const docs: Docs = {
 export function DocsSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
-  const router = useRouter();
-  const currentPath = router.parseLocation().pathname;
-
   return (
     <Sidebar variant="floating" {...props}>
       <SidebarHeader>
@@ -123,7 +120,9 @@ export function DocsSidebar({
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu className="gap-2">
-            {docs.docs.map((item) => renderDocsItem(item, currentPath))}
+            {docs.docs.map((item, index) => (
+              <DocsItem key={index} item={item} />
+            ))}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
@@ -143,7 +142,10 @@ function isItemActive(item: Item, pathname: string): boolean {
   }
 }
 
-function renderDocsItem(item: Item, currentPath: string, level = 0) {
+function DocsItem({ item, level = 0 }: { item: Item; level?: number }) {
+  const router = useRouter();
+  const currentPath = router.parseLocation().pathname;
+
   if (item.type === "html") {
     return (
       <SidebarMenuItem key="html">
@@ -185,13 +187,13 @@ function renderDocsItem(item: Item, currentPath: string, level = 0) {
     const isCollapsed = item.collapsed ?? true;
     const isTopLevelCategory = level === 0;
 
-    const isActive = isItemActive(item, currentPath); // Check if the item is active
+    const isActive = isItemActive(item, currentPath);
 
     const [isOpen, setIsOpen] = React.useState(() => !isCollapsed || isActive);
 
     React.useEffect(() => {
       if (isActive) {
-        setIsOpen(true); // Open the category if it's active
+        setIsOpen(true);
       }
     }, [isActive]);
 
@@ -213,7 +215,7 @@ function renderDocsItem(item: Item, currentPath: string, level = 0) {
               <ButtonComponent className="group/collapsible select-none">
                 {item.href ? (
                   <LinkComponent
-                    href={item.href}
+                    to={item.href}
                     className="font-medium"
                     activeOptions={{ exact: true }}
                     activeProps={{
@@ -232,15 +234,15 @@ function renderDocsItem(item: Item, currentPath: string, level = 0) {
               {item.items?.length ? (
                 isTopLevelCategory ? (
                   <SidebarMenuSub>
-                    {item.items.map((subItem) =>
-                      renderDocsItem(subItem, currentPath, level + 1)
-                    )}
+                    {item.items.map((subItem, index) => (
+                      <DocsItem key={index} item={subItem} level={level + 1} />
+                    ))}
                   </SidebarMenuSub>
                 ) : (
                   <SidebarMenuSub className="ml-0 border-l-0 px-1.5">
-                    {item.items.map((subItem) =>
-                      renderDocsItem(subItem, currentPath, level + 1)
-                    )}
+                    {item.items.map((subItem, index) => (
+                      <DocsItem key={index} item={subItem} level={level + 1} />
+                    ))}
                   </SidebarMenuSub>
                 )
               ) : null}
@@ -256,7 +258,7 @@ function renderDocsItem(item: Item, currentPath: string, level = 0) {
         <SidebarMenuItem key={item.label}>
           {item.href ? (
             <LinkComponent
-              href={item.href}
+              to={item.href}
               className="font-medium"
               activeOptions={{ exact: true }}
               activeProps={{
@@ -272,9 +274,9 @@ function renderDocsItem(item: Item, currentPath: string, level = 0) {
           )}
           {item.items?.length ? (
             <SidebarMenuSub className="ml-0 border-l-0 px-1.5">
-              {item.items.map((subItem) =>
-                renderDocsItem(subItem, currentPath, level + 1)
-              )}
+              {item.items.map((subItem, index) => (
+                <DocsItem key={index} item={subItem} level={level + 1} />
+              ))}
             </SidebarMenuSub>
           ) : null}
         </SidebarMenuItem>
@@ -285,7 +287,7 @@ function renderDocsItem(item: Item, currentPath: string, level = 0) {
       <SidebarMenuSubItem key={item.label}>
         {item.href ? (
           <LinkComponent
-            href={item.href}
+            to={item.href}
             className="font-medium"
             activeOptions={{ exact: true }}
           >
@@ -298,12 +300,14 @@ function renderDocsItem(item: Item, currentPath: string, level = 0) {
         )}
         {item.items?.length ? (
           <SidebarMenuSub className="ml-0 border-l-0 px-1.5">
-            {item.items.map((subItem) =>
-              renderDocsItem(subItem, currentPath, level + 1)
-            )}
+            {item.items.map((subItem, index) => (
+              <DocsItem key={index} item={subItem} level={level + 1} />
+            ))}
           </SidebarMenuSub>
         ) : null}
       </SidebarMenuSubItem>
     );
   }
+
+  return null;
 }
