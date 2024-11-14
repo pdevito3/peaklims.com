@@ -58,9 +58,38 @@ const docs: Docs = {
     },
     {
       type: "category",
-      label: "Licensing",
+      label: "Core Concepts",
       collapsible: true,
       collapsed: false,
+      items: [],
+    },
+    {
+      type: "category",
+      label: "Getting Started",
+      collapsible: true,
+      collapsed: false,
+      items: [
+        {
+          type: "category",
+          label: "Initial Time Setup",
+          collapsible: true,
+          collapsed: false,
+          items: [],
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "Accessioning",
+      collapsible: true,
+      collapsed: true,
+      items: [],
+    },
+    {
+      type: "category",
+      label: "Licensing",
+      collapsible: true,
+      collapsed: true,
       items: [
         {
           type: "link",

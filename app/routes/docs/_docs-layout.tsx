@@ -26,7 +26,7 @@ function RouteComponent() {
           {/* <Separator orientation="vertical" className="mr-2 h-4" />
           Peak LIMS */}
         </header>
-        <div className="px-4">
+        <div className="px-4 max-w-7xl">
           <Outlet />
         </div>
       </SidebarInset>
