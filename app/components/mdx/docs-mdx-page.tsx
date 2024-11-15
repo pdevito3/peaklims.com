@@ -1,4 +1,4 @@
-import TableOfContents from "~/components/mdx/table-of-contents";
+import { TableOfContents } from "~/components/mdx/table-of-contents";
 export function DocsMdxPage({
   children,
   headings,
