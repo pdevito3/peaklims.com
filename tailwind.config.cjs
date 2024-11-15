@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ['class'],
-  content: ['./app/**/*.{js,ts,jsx,tsx}', './**/app.config.ts'],
+  content: ['./app/**/*.{js,ts,jsx,tsx,mdx}', './**/app.config.ts'],
   safelist: [
     'ml-4',
     'ml-8',
