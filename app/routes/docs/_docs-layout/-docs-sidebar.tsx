@@ -60,14 +60,14 @@ const docs: Docs = {
       type: "category",
       label: "Core Concepts",
       collapsible: true,
-      collapsed: false,
+      collapsed: true,
       items: [],
     },
     {
       type: "category",
       label: "Getting Started",
       collapsible: true,
-      collapsed: false,
+      collapsed: true,
       items: [
         {
           type: "category",

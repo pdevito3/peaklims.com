@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Markdown from "./-sustainable-use-license.mdx";
+import { DocsMdxPage } from "~/components/mdx/docs-mdx-page";
+import Markdown, { headings } from "./-sustainable-use-license.mdx";
 
 export const Route = createFileRoute(
   "/docs/_docs-layout/sustainable-use-license"
@@ -8,5 +9,9 @@ export const Route = createFileRoute(
 });
 
 function RouteComponent() {
-  return <Markdown />;
+  return (
+    <DocsMdxPage headings={headings}>
+      <Markdown />
+    </DocsMdxPage>
+  );
 }
