@@ -4,6 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useId, useRef } from "react";
 import peakLimsScreenshot from "~/assets/peaklims-screenshot.png";
 import { WaitlistForm } from "~/components/waitlist-form";
+import { tagLine } from "~/resources/marketing-copy";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -67,7 +68,7 @@ function Home() {
                 </h4>
                 <div className="pt-5">
                   <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-6xl text-pretty">
-                    The laboratory software you&apos;ll enjoy using
+                    {tagLine}
                   </h1>
                 </div>
                 <p className="mt-6 text-lg leading-8 text-gray-600">

@@ -4,6 +4,13 @@ import Markdown, { headings } from "./-index.mdx";
 
 export const Route = createFileRoute("/docs/_docs-layout/")({
   component: RouteComponent,
+  meta: () => [
+    { title: "Peak LIMS Docs" },
+    {
+      name: "description",
+      content: "Documentation for Peak LIMS",
+    },
+  ],
 });
 
 function RouteComponent() {

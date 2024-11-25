@@ -6,6 +6,13 @@ export const Route = createFileRoute(
   "/docs/_docs-layout/sustainable-use-license"
 )({
   component: RouteComponent,
+  meta: () => [
+    { title: "Peak LIMS Docs | Sustainable Use License" },
+    {
+      name: "description",
+      content: "Documentation for the Peak LIMS Sustainable Use License",
+    },
+  ],
 });
 
 function RouteComponent() {
