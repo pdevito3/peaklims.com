@@ -22,6 +22,9 @@ export default defineConfig({
       entry: "./app/entry-client.tsx",
     },
   },
+  server: {
+    preset: "vercel",
+  },
   vite: {
     // resolve: {
     //   alias: {
