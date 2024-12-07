@@ -73,7 +73,7 @@ function Home() {
                 </div>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
                   Peak LIMS lets you manage your laboratory data with ease and
-                  delivers an experience helps high performing teams accomplish
+                  delivers an experience that helps high performing teams accomplish
                   great things.
                 </p>
               </div>
