@@ -13,6 +13,7 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as EmailSubscriptionConfirmedImport } from './routes/email-subscription-confirmed'
 import { Route as MarketingLayoutImport } from './routes/_marketing-layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as DocsDocsLayoutImport } from './routes/docs/_docs-layout'
@@ -32,6 +33,14 @@ const DocsRoute = DocsImport.update({
   path: '/docs',
   getParentRoute: () => rootRoute,
 } as any)
+
+const EmailSubscriptionConfirmedRoute = EmailSubscriptionConfirmedImport.update(
+  {
+    id: '/email-subscription-confirmed',
+    path: '/email-subscription-confirmed',
+    getParentRoute: () => rootRoute,
+  } as any,
+)
 
 const MarketingLayoutRoute = MarketingLayoutImport.update({
   id: '/_marketing-layout',
@@ -92,6 +101,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof MarketingLayoutImport
+      parentRoute: typeof rootRoute
+    }
+    '/email-subscription-confirmed': {
+      id: '/email-subscription-confirmed'
+      path: '/email-subscription-confirmed'
+      fullPath: '/email-subscription-confirmed'
+      preLoaderRoute: typeof EmailSubscriptionConfirmedImport
       parentRoute: typeof rootRoute
     }
     '/docs': {
@@ -183,6 +199,7 @@ const DocsRouteWithChildren = DocsRoute._addFileChildren(DocsRouteChildren)
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof MarketingLayoutRouteWithChildren
+  '/email-subscription-confirmed': typeof EmailSubscriptionConfirmedRoute
   '/docs': typeof DocsDocsLayoutRouteWithChildren
   '/docs/sustainable-use-license': typeof DocsDocsLayoutSustainableUseLicenseRoute
   '/forking': typeof MarketingLayoutForkingIndexRoute
@@ -193,6 +210,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof MarketingLayoutRouteWithChildren
+  '/email-subscription-confirmed': typeof EmailSubscriptionConfirmedRoute
   '/docs': typeof DocsDocsLayoutIndexRoute
   '/docs/sustainable-use-license': typeof DocsDocsLayoutSustainableUseLicenseRoute
   '/forking': typeof MarketingLayoutForkingIndexRoute
@@ -203,6 +221,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/_marketing-layout': typeof MarketingLayoutRouteWithChildren
+  '/email-subscription-confirmed': typeof EmailSubscriptionConfirmedRoute
   '/docs': typeof DocsRouteWithChildren
   '/docs/_docs-layout': typeof DocsDocsLayoutRouteWithChildren
   '/docs/_docs-layout/sustainable-use-license': typeof DocsDocsLayoutSustainableUseLicenseRoute
@@ -216,6 +235,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | ''
+    | '/email-subscription-confirmed'
     | '/docs'
     | '/docs/sustainable-use-license'
     | '/forking'
@@ -225,6 +245,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | ''
+    | '/email-subscription-confirmed'
     | '/docs'
     | '/docs/sustainable-use-license'
     | '/forking'
@@ -233,6 +254,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_marketing-layout'
+    | '/email-subscription-confirmed'
     | '/docs'
     | '/docs/_docs-layout'
     | '/docs/_docs-layout/sustainable-use-license'
@@ -245,12 +267,14 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MarketingLayoutRoute: typeof MarketingLayoutRouteWithChildren
+  EmailSubscriptionConfirmedRoute: typeof EmailSubscriptionConfirmedRoute
   DocsRoute: typeof DocsRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MarketingLayoutRoute: MarketingLayoutRouteWithChildren,
+  EmailSubscriptionConfirmedRoute: EmailSubscriptionConfirmedRoute,
   DocsRoute: DocsRouteWithChildren,
 }
 
@@ -266,6 +290,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/_marketing-layout",
+        "/email-subscription-confirmed",
         "/docs"
       ]
     },
@@ -278,6 +303,9 @@ export const routeTree = rootRoute
         "/_marketing-layout/forking/",
         "/_marketing-layout/pricing/"
       ]
+    },
+    "/email-subscription-confirmed": {
+      "filePath": "email-subscription-confirmed.tsx"
     },
     "/docs": {
       "filePath": "docs",
