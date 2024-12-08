@@ -1,53 +1,20 @@
 // app/routes/index.tsx
 import { createFileRoute } from "@tanstack/react-router";
 
-import { useEffect, useId, useRef } from "react";
+import { useId } from "react";
 import peakLimsScreenshot from "~/assets/peaklims-screenshot.png";
 import { WaitlistForm } from "~/components/waitlist-form";
 import { tagLine } from "~/resources/marketing-copy";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_marketing-layout/")({
   component: Home,
 });
 
-// <script async data-uid="3ad496dc0f" src="https://fragrant-firefly-3614.ck.page/3ad496dc0f/index.js"></script>
-
-function useConvertKitEmbed({ dataUid }: { dataUid: string }) {
-  const scriptContainerRef = useRef(null);
-
-  useEffect(() => {
-    // Check if the script is already present before appending it
-    if (
-      scriptContainerRef.current &&
-      !scriptContainerRef.current.querySelector("script")
-    ) {
-      const script = document.createElement("script");
-      script.src = `https://fragrant-firefly-3614.ck.page/${dataUid}/index.js`;
-      script.async = true;
-      script.setAttribute("data-uid", dataUid);
-      scriptContainerRef.current.appendChild(script);
-
-      return () => {
-        if (scriptContainerRef.current) {
-          scriptContainerRef.current.removeChild(script);
-        }
-      };
-    }
-  }, [dataUid]);
-
-  return scriptContainerRef;
-}
-
 function Home() {
-  const scriptContainerRef = useConvertKitEmbed({ dataUid: "3ad496dc0f" });
-  const bottomScriptContainerRef = useConvertKitEmbed({
-    dataUid: "3ad496dc0f",
-  });
-
   return (
     <div className="bg-white">
       <div className="">
-        <div className="relative isolate pt-14">
+        <div className="relative pt-14">
           <div
             aria-hidden="true"
             className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"

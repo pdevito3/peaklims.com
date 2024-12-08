@@ -15,7 +15,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as EmailSubscriptionConfirmedImport } from './routes/email-subscription-confirmed'
 import { Route as MarketingLayoutImport } from './routes/_marketing-layout'
-import { Route as IndexImport } from './routes/index'
+import { Route as MarketingLayoutIndexImport } from './routes/_marketing-layout/index'
 import { Route as DocsDocsLayoutImport } from './routes/docs/_docs-layout'
 import { Route as DocsDocsLayoutIndexImport } from './routes/docs/_docs-layout/index'
 import { Route as MarketingLayoutPricingIndexImport } from './routes/_marketing-layout/pricing/index'
@@ -47,10 +47,10 @@ const MarketingLayoutRoute = MarketingLayoutImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const IndexRoute = IndexImport.update({
+const MarketingLayoutIndexRoute = MarketingLayoutIndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => MarketingLayoutRoute,
 } as any)
 
 const DocsDocsLayoutRoute = DocsDocsLayoutImport.update({
@@ -89,13 +89,6 @@ const DocsDocsLayoutSustainableUseLicenseRoute =
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
     '/_marketing-layout': {
       id: '/_marketing-layout'
       path: ''
@@ -123,6 +116,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/docs'
       preLoaderRoute: typeof DocsDocsLayoutImport
       parentRoute: typeof DocsRoute
+    }
+    '/_marketing-layout/': {
+      id: '/_marketing-layout/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof MarketingLayoutIndexImport
+      parentRoute: typeof MarketingLayoutImport
     }
     '/docs/_docs-layout/sustainable-use-license': {
       id: '/docs/_docs-layout/sustainable-use-license'
@@ -158,11 +158,13 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface MarketingLayoutRouteChildren {
+  MarketingLayoutIndexRoute: typeof MarketingLayoutIndexRoute
   MarketingLayoutForkingIndexRoute: typeof MarketingLayoutForkingIndexRoute
   MarketingLayoutPricingIndexRoute: typeof MarketingLayoutPricingIndexRoute
 }
 
 const MarketingLayoutRouteChildren: MarketingLayoutRouteChildren = {
+  MarketingLayoutIndexRoute: MarketingLayoutIndexRoute,
   MarketingLayoutForkingIndexRoute: MarketingLayoutForkingIndexRoute,
   MarketingLayoutPricingIndexRoute: MarketingLayoutPricingIndexRoute,
 }
@@ -197,10 +199,10 @@ const DocsRouteChildren: DocsRouteChildren = {
 const DocsRouteWithChildren = DocsRoute._addFileChildren(DocsRouteChildren)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '': typeof MarketingLayoutRouteWithChildren
   '/email-subscription-confirmed': typeof EmailSubscriptionConfirmedRoute
   '/docs': typeof DocsDocsLayoutRouteWithChildren
+  '/': typeof MarketingLayoutIndexRoute
   '/docs/sustainable-use-license': typeof DocsDocsLayoutSustainableUseLicenseRoute
   '/forking': typeof MarketingLayoutForkingIndexRoute
   '/pricing': typeof MarketingLayoutPricingIndexRoute
@@ -208,10 +210,9 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '': typeof MarketingLayoutRouteWithChildren
   '/email-subscription-confirmed': typeof EmailSubscriptionConfirmedRoute
   '/docs': typeof DocsDocsLayoutIndexRoute
+  '/': typeof MarketingLayoutIndexRoute
   '/docs/sustainable-use-license': typeof DocsDocsLayoutSustainableUseLicenseRoute
   '/forking': typeof MarketingLayoutForkingIndexRoute
   '/pricing': typeof MarketingLayoutPricingIndexRoute
@@ -219,11 +220,11 @@ export interface FileRoutesByTo {
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRoute
   '/_marketing-layout': typeof MarketingLayoutRouteWithChildren
   '/email-subscription-confirmed': typeof EmailSubscriptionConfirmedRoute
   '/docs': typeof DocsRouteWithChildren
   '/docs/_docs-layout': typeof DocsDocsLayoutRouteWithChildren
+  '/_marketing-layout/': typeof MarketingLayoutIndexRoute
   '/docs/_docs-layout/sustainable-use-license': typeof DocsDocsLayoutSustainableUseLicenseRoute
   '/_marketing-layout/forking/': typeof MarketingLayoutForkingIndexRoute
   '/_marketing-layout/pricing/': typeof MarketingLayoutPricingIndexRoute
@@ -233,30 +234,29 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | ''
     | '/email-subscription-confirmed'
     | '/docs'
+    | '/'
     | '/docs/sustainable-use-license'
     | '/forking'
     | '/pricing'
     | '/docs/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
-    | ''
     | '/email-subscription-confirmed'
     | '/docs'
+    | '/'
     | '/docs/sustainable-use-license'
     | '/forking'
     | '/pricing'
   id:
     | '__root__'
-    | '/'
     | '/_marketing-layout'
     | '/email-subscription-confirmed'
     | '/docs'
     | '/docs/_docs-layout'
+    | '/_marketing-layout/'
     | '/docs/_docs-layout/sustainable-use-license'
     | '/_marketing-layout/forking/'
     | '/_marketing-layout/pricing/'
@@ -265,14 +265,12 @@ export interface FileRouteTypes {
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   MarketingLayoutRoute: typeof MarketingLayoutRouteWithChildren
   EmailSubscriptionConfirmedRoute: typeof EmailSubscriptionConfirmedRoute
   DocsRoute: typeof DocsRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   MarketingLayoutRoute: MarketingLayoutRouteWithChildren,
   EmailSubscriptionConfirmedRoute: EmailSubscriptionConfirmedRoute,
   DocsRoute: DocsRouteWithChildren,
@@ -288,18 +286,15 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
         "/_marketing-layout",
         "/email-subscription-confirmed",
         "/docs"
       ]
     },
-    "/": {
-      "filePath": "index.tsx"
-    },
     "/_marketing-layout": {
       "filePath": "_marketing-layout.tsx",
       "children": [
+        "/_marketing-layout/",
         "/_marketing-layout/forking/",
         "/_marketing-layout/pricing/"
       ]
@@ -320,6 +315,10 @@ export const routeTree = rootRoute
         "/docs/_docs-layout/sustainable-use-license",
         "/docs/_docs-layout/"
       ]
+    },
+    "/_marketing-layout/": {
+      "filePath": "_marketing-layout/index.tsx",
+      "parent": "/_marketing-layout"
     },
     "/docs/_docs-layout/sustainable-use-license": {
       "filePath": "docs/_docs-layout/sustainable-use-license.tsx",
