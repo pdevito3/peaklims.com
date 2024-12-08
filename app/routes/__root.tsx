@@ -78,6 +78,7 @@ window.$RefreshSig$ = () => (type) => type`,
 function RootComponent() {
   return (
     <RootDocument>
+      <ScrollRestoration />
       <Outlet />
       <ClickToComponent />
     </RootDocument>
@@ -92,7 +93,6 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       </Head>
       <Body>
         {children}
-        <ScrollRestoration />
         <Scripts />
       </Body>
     </Html>
