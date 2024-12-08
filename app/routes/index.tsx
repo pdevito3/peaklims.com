@@ -61,7 +61,7 @@ function Home() {
             />
           </div>
           <div className="py-24 sm:py-32 lg:pb-6">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl px-4 sm:px-8">
               <div className="mx-auto max-w-[44rem] text-center">
                 <h4 className="uppercase font-semibold">
                   Introducing Peak LIMS
@@ -73,8 +73,8 @@ function Home() {
                 </div>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
                   Peak LIMS lets you manage your laboratory data with ease and
-                  delivers an experience that helps high performing teams accomplish
-                  great things.
+                  delivers an experience that helps high performing teams
+                  accomplish great things.
                 </p>
               </div>
               <div className="mt-10 flex items-center justify-center w-full">
@@ -117,7 +117,7 @@ function Home() {
         </div>
 
         {/* <div className="px-8 pt-10 bg-slate-300"> */}
-        <div className="px-8 pt-10">
+        <div className="px-2 sm:px-8 pt-10">
           <div className="py-24">
             <div className="flex-col items-center justify-center w-full ">
               <div className="flex items-center justify-center">
@@ -134,11 +134,11 @@ function Home() {
           </div>
         </div>
 
-        <div className="px-8 py-0 relative">
+        <div className="px-2 sm:px-8 py-0 relative">
           {/* <div className="absolute top-0 inset-x-0 bg-gradient-to-b from-slate-300 to-slate-400/10 h-10 py-10" /> */}
           <div className="absolute top-0 inset-x-0 h-10 py-10" />
           <div className="py-12 mt-5">
-            <div className="rounded-xl shadow-md bg-white border-2 py-12 px-12 max-w-6xl mx-auto">
+            <div className="rounded-xl shadow-md bg-white border-2 py-12 px-6 sm:px-12 max-w-6xl mx-auto">
               <div className="w-full">
                 <h2 className="text-slate-800 font-bold text-2xl">
                   Get Early Access to Peak LIMS
