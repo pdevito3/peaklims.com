@@ -7,7 +7,7 @@ export const Route = createFileRoute(
 )({
   component: RouteComponent,
   meta: () => [
-    { title: "Peak LIMS Docs | Sustainable Use License" },
+    { title: "Sustainable Use License" },
     {
       name: "description",
       content: "Documentation for the Peak LIMS Sustainable Use License",

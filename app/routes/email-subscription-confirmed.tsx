@@ -3,11 +3,17 @@ import Logo from "~/assets/logo-with-name.svg";
 
 export const Route = createFileRoute("/email-subscription-confirmed")({
   component: RouteComponent,
+  meta: () => [
+    { title: "Subscription Confirmed!" },
+    {
+      name: "description",
+      content:
+        "Subscription confirmed! Boom! You're officially confirmed and on the list. Expect some great emails headed your way very soon.",
+    },
+  ],
 });
 
 function RouteComponent() {
-  //   Subscription confirmed!
-  // Boom! You're officially confirmed and on the list. Expect some great emails headed your way very soon.
   return (
     <div className="w-full h-svh flex flex-col items-center justify-center">
       <img src={Logo} alt="Peak LIMS" className="h-16" />

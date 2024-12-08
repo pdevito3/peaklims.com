@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { useState } from "react";
-import { cn } from "~/utils";
+import { cn, headTextBuilder } from "~/utils";
 
 export const Route = createFileRoute("/_marketing-layout/pricing/")({
   component: Pricing,
   meta: () => [
-    { title: "Peak LIMS | Pricing" },
+    { title: headTextBuilder({ pageHead: "Pricing" }) },
     { name: "description", content: "Pricing for Peak LIMS" },
   ],
 });

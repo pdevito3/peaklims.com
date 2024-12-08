@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { cn } from "~/utils";
+import { cn, headTextBuilder } from "~/utils";
 
 export const Route = createFileRoute("/_marketing-layout/forking/")({
   component: Forking,
   meta: () => [
-    { title: "Peak LIMS | Forking" },
+    { title: headTextBuilder({ pageHead: "Forking" }) },
     {
       name: "description",
       content: "Information on the Forking program for Peak LIMS",
